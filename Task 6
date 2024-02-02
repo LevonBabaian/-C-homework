@@ -1,0 +1,67 @@
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        // Example matrix size (replace with your own values)
+        int rows = 3;
+        int cols = 4;
+
+        // Create and display the randomly filled matrix
+        int[,] matrix = RandomlyFillMatrix(rows, cols);
+        DisplayMatrix(matrix);
+
+        // Wait for user input to close the console window
+        Console.ReadLine();
+    }
+
+    static int[,] RandomlyFillMatrix(int rows, int cols)
+    {
+        int[,] matrix = new int[rows, cols];
+        Random random = new Random();
+
+        // Calculate the total number of elements in the matrix
+        int totalElements = rows * cols;
+
+        // Create a list to store the available numbers
+        var availableNumbers = new System.Collections.Generic.List<int>(totalElements);
+
+        // Fill the list with numbers from 1 to totalElements
+        for (int i = 1; i <= totalElements; i++)
+        {
+            availableNumbers.Add(i);
+        }
+
+        // Randomly fill the matrix with non-repeating numbers
+        for (int i = 0; i < rows; i++)
+        {
+            for (int j = 0; j < cols; j++)
+            {
+                // Get a random index from the available numbers list
+                int randomIndex = random.Next(availableNumbers.Count);
+
+                // Assign the selected number to the matrix
+                matrix[i, j] = availableNumbers[randomIndex];
+
+                // Remove the selected number from the available numbers list
+                availableNumbers.RemoveAt(randomIndex);
+            }
+        }
+
+        return matrix;
+    }
+
+    static void DisplayMatrix(int[,] matrix)
+    {
+        // Display the matrix
+        for (int i = 0; i < matrix.GetLength(0); i++)
+        {
+            for (int j = 0; j < matrix.GetLength(1); j++)
+            {
+                Console.Write(matrix[i, j] + "\t");
+            }
+            Console.WriteLine();
+        }
+    }
+}
