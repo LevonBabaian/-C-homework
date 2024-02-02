@@ -1,0 +1,97 @@
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        // Define the chessboard size
+        int rows = 8;
+        int cols = 8;
+
+        // Create a 2D array to represent the chessboard
+        int[,] chessboard = new int[rows, cols];
+
+        // Randomly place a knight on the chessboard
+        RandomlyPlaceKnight(chessboard);
+
+        // Display the initial chessboard with the knight
+        Console.WriteLine("Initial Chessboard:");
+        ShowChessboard(chessboard);
+
+        // Move the knight to a random free field
+        MoveKnight(chessboard);
+
+        // Display the chessboard after the knight's move
+        Console.WriteLine("\nChessboard After Knight's Move:");
+        ShowChessboard(chessboard);
+
+        // Wait for user input to close the console window
+        Console.ReadLine();
+    }
+
+    static void RandomlyPlaceKnight(int[,] chessboard)
+    {
+        Random random = new Random();
+
+        // Find a random free position for the knight
+        int randomRow, randomCol;
+        do
+        {
+            randomRow = random.Next(chessboard.GetLength(0));
+            randomCol = random.Next(chessboard.GetLength(1));
+        } while (chessboard[randomRow, randomCol] == 1);
+
+        // Place the knight on the randomly chosen position
+        chessboard[randomRow, randomCol] = 1;
+    }
+
+    static void MoveKnight(int[,] chessboard)
+    {
+        // Find the current position of the knight
+        int knightRow = -1, knightCol = -1;
+        for (int i = 0; i < chessboard.GetLength(0); i++)
+        {
+            for (int j = 0; j < chessboard.GetLength(1); j++)
+            {
+                if (chessboard[i, j] == 1)
+                {
+                    knightRow = i;
+                    knightCol = j;
+                    break;
+                }
+            }
+            if (knightRow != -1)
+                break;
+        }
+
+        // Move the knight to a random free field
+        chessboard[knightRow, knightCol] = 0; // Clear the current position
+
+        // Find a random free position for the knight
+        Random random = new Random();
+        int randomRow, randomCol;
+        do
+        {
+            randomRow = random.Next(chessboard.GetLength(0));
+            randomCol = random.Next(chessboard.GetLength(1));
+        } while (chessboard[randomRow, randomCol] == 1);
+
+        // Place the knight on the randomly chosen position
+        chessboard[randomRow, randomCol] = 1;
+    }
+
+    static void ShowChessboard(int[,] chessboard)
+    {
+        // Display the chessboard matrix
+        for (int i = 0; i < chessboard.GetLength(0); i++)
+        {
+            for (int j = 0; j < chessboard.GetLength(1); j++)
+            {
+                // Print the current cell value
+                Console.Write(chessboard[i, j] + " ");
+            }
+            // Move to the next row in the console
+            Console.WriteLine();
+        }
+    }
+}
