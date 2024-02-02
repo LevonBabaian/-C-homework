@@ -1,0 +1,42 @@
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        // Define the chessboard size
+        int rows = 8;
+        int cols = 8;
+
+        // Create a 2D array to represent the chessboard
+        int[,] chessboard = new int[rows, cols];
+
+        // Set the initial position of the knight (assuming 0-based indexing)
+        int knightRow = 3; // Row index of the knight
+        int knightCol = 4; // Column index of the knight
+
+        // Mark the knight's current position on the chessboard
+        chessboard[knightRow, knightCol] = 1;
+
+        // Display the chessboard with knight's possible moves
+        ShowChessboard(chessboard);
+
+        // Wait for user input to close the console window
+        Console.ReadLine();
+    }
+    static void ShowChessboard(int[,] chessboard)
+{
+    // Display the chessboard matrix
+    for (int i = 0; i < chessboard.GetLength(0); i++)
+    {
+        for (int j = 0; j < chessboard.GetLength(1); j++)
+        {
+            // Print the current cell value
+            Console.Write(chessboard[i, j] + " ");
+        }
+        // Move to the next row in the console
+        Console.WriteLine();
+    }
+}
+
+}
